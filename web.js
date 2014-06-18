@@ -10,7 +10,7 @@ var server = express();
 
 //Init logging
 server.use(logfmt.requestLogger());
-server.use(bodyParser.json());
+server.use(bodyParser.urlencoded());
 server.use('/www', express.static(__dirname + '/www'));
 
 /** Route on GET **/
