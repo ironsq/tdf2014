@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Tour de France - Teams 2014</title>
+    <script src="javascripts/jquery-2.1.1.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.min.css"/>
+</head>
+<body>
+<div class="container" id="resultDiv" hidden>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Kompass avslutad!</h1>
+            <h2>Grattis, ditt lag blev: <strong id="teamResult"></strong></h2>
+        </div>
+    </div>
+</div>
+<div class="container" id="compassDiv">
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="nav nav-pills">
+            <li class="active" id="nationTab"><a href="#nationTabContent" data-toggle="tab">1. Landet</a></li>
+            <li id="productTab"><a href="#productTabContent" data-toggle="tab">2. Produkten</a></li>
+            <li id="colorTab"><a href="#colorTabContent" data-toggle="tab">3. Färgen</a></li>
+            <li id="victoryTab"><a href="#victoryTabContent" data-toggle="tab">4. Segern</a></li>
+            <li id="swedenTab"><a href="#swedenTabContent" data-toggle="tab">5. Sverige</a></li>
+            <li id="nationCompTab"><a href="#nationCompTabContent" data-toggle="tab">6. Sammansättning</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <h1>Tour de France 2014</h1>
+    </div>
+</div>
+<form role="form" id="compassForm">
+    <div class="tab-content">
+        <div class="tab-pane active form-group" id="nationTabContent">
+            <h5>Vilket av dessa länder, klappar ditt hjärta lite extra för?</h5>
+            <div class="radio"  >
+                <label><input type="radio" id="france" name="nationRadio" value="fra">Frankrike</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="spain" name="nationRadio" value="spa">Spanien</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="kazakhstan" name="nationRadio" value="kaz">Kazakstan</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="netherlands" name="nationRadio" value="ned">Nederländerna</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="usa" name="nationRadio" value="usa">USA</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="italy" name="nationRadio" value="ita">Italien</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="belgium" name="nationRadio" value="bel">Belgien</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="australia" name="nationRadio" value="aus">Australien</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="russia" name="nationRadio" value="rus">Ryssland</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="denmark" name="nationRadio" value="den">Danmark</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="germany" name="nationRadio" value="ger">Tyskland</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="uk" name="nationRadio" value="gb">Storbritannien</label>
+            </div>
+        </div>
+
+        <div class="tab-pane form-group" id="productTabContent">
+            <h5>Vilken av dessa produkter och tjänster har du konsumerat under 2014?</h5>
+            <div class="radio">
+                <label><input type="radio" id="betting" name="productRadio" value="bet">Spel och dobbel</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="carRental" name="productRadio" value="car">Hyrbilar</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="mobile" name="productRadio" value="mob">Mobiltelefoni</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="insurance" name="productRadio" value="ins">Försäkringar</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="bicycle" name="productRadio" value="bic">Cyklar</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="finance" name="productRadio" value="fin">Finansiella tjänster</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="oil" name="productRadio" value="oil">Olja</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="doors" name="productRadio" value="dor">Dörrar</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="mining" name="productRadio" value="min">Gruvnäring</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="storage" name="productRadio" value="sto">Datalagring</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="eastern" name="productRadio" value="cou">Länder i Östeuropa</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="wasteManagement" name="productRadio" value="was">Avfallshantering</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="television" name="productRadio" value="tel">TV</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="consumerElectronics" name="productRadio" value="ele">Hemelektronik</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="gps" name="productRadio" value="gps">GPS</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="steal" name="productRadio" value="ste">Stål</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="medicin" name="productRadio" value="med">Medicin</label>
+            </div>
+        </div>
+
+        <div class="tab-pane form-group" id="colorTabContent">
+            <h5>Vilken av dessa färger föredrar du?</h5>
+            <div class="radio">
+                <label><input type="radio" id="blue" name="colorRadio" value="blue">Blå</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="green" name="colorRadio" value="green">Grön</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="red" name="colorRadio" value="red">Röd</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="white" name="colorRadio" value="white">Vit</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="black" name="colorRadio" value="black">Svart</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="yellow" name="colorRadio" value="yellow">Gul</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="brown" name="colorRadio" value="brown">Brun</label>
+            </div>
+        </div>
+
+        <div class="tab-pane form-group" id="victoryTabContent">
+            <h5>Är det viktigast att vinna etapper eller att vinna totalen?</h5>
+            <div class="radio">
+                <label><input type="radio" id="stage" name="victoryRadio" value="stage">Etapper</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="total" name="victoryRadio" value="total">Totalen</label>
+            </div>
+        </div>
+
+        <div class="tab-pane form-group" id="swedenTabContent">
+            <h5>Jag är inte rasist men svenska ryttare är något speciellt.</h5>
+            <div class="radio">
+                <label><input type="radio" id="proSweden" name="swedenRadio" value="proSwe">Jag kunde inte sagt det bättre själv.</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="proWorld" name="swedenRadio" value="proWorld">Snick snack, vi är alla världsmedborgare.</label>
+            </div>
+        </div>
+
+        <div class="tab-pane form-group" id="nationCompTabContent">
+            <h5>Jag tycker att det är viktigt att ett stall har en nationell identitet och att ryttarna i huvudsak hämtas från samma land?</h5>
+            <div class="radio">
+                <label><input type="radio" id="nationCoherence" name="nationCompRadio" value="cohere">Absolut! Jag är ingen hippie.</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="nationBalance" name="nationCompRadio" value="balance">Njae, det bör väl finnas någon koppling men vi är ju alla människor.</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" id="nationMix" name="nationCompRadio" value="mix">Nationell identitet? Riv gränserna!</label>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button id="submitButton" type="submit" class="btn btn-primary">Skicka</button>
+                    <script type="text/javascript">
+                        $("#compassForm").submit(function(e) {
+                            e.preventDefault();
+                            var request = $.ajax({
+                                url: '/compass',
+                                type: 'POST',
+                                data: $('#compassForm').serialize(),
+                                dataType: 'json'
+                            });
+                            request.done(function( msg ) {
+                                console.log('done:' + msg);
+                                $("#compassDiv").hide();
+                                $("#resultDiv").show();
+                                $("#teamResult").append(msg);
+                            });
+
+                            request.fail(function( jqXHR, textStatus ) {
+                                console.log( "Request failed: " + textStatus );
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+</body>
+</html>

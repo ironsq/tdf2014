@@ -1,0 +1,23 @@
+{
+    "name": "tdf2014",
+    "version": "0.0.1",
+    "private": true,
+    "main": "web.js",
+    "scripts": {
+        "test": "echo \"No test specified\" && exit 1"
+    },
+
+    "dependencies": {
+        "express": "~4.2.0",
+        "mongodb": "*"
+    },
+
+    "repository": {
+        "type": "git",
+        "url": "git@heroku.com:tdf2014.git"
+    },
+
+    "engines": {
+        "node": "0.10.x"
+    }
+}
