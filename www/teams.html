@@ -1,25 +1,135 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tour de France - Teams 2014</title>
-    <script src="javascripts/jquery-2.1.1.min.js"></script>
-    <script src="javascripts/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.min.css"/>
+    <script src="libraries/jquery-2.1.1.min.js"></script>
+    <script src="libraries/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap-theme.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/tdfstyle.css"/>
+
 </head>
+
 <body>
-<div class="container-fluid">
+<div class="container">
+
+    <div class="jumbotron top-spacer">
+        <h1>Teams of 2014</h1>
+    </div>
 
     <div class="row">
-        <div class="col-xs-12" />
-        <div class="panel panel-primary">
-            <div class="panel-heading">Teams</div>
-            <div class="panel-body">
-                Show teams
+        <div class="col-xs-12">
+            <h3>Team Filter</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+
+        <form role="form" id="teamFilterForm" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-4">
+                    <!--<label class="control-label">Nation:</label>-->
+                    <select class="form-control" id="nationSelect" name="nation">
+                        <option value="">Select nation</option>
+                        <option value="France">France</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="United States">United States</option>
+                        <option value="Kazhakstan">Kazahkstan</option>
+                        <option value="England">England</option>
+                        <option value="Italy">Italy</option>
+                        <option value="France">France</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Russia">Russia</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="Germany">Germany</option>
+                    </select>
+                </div>
+                <div class="col-xs-4">
+                    <!--<label>Bicycle brand:</label>-->
+                    <select class="form-control" id="bicycleBrandSelect" name="bicycles">
+                        <option value="">Select bicycle brand</option>
+                        <option value="Lapierre">Lapierre</option>
+                        <option value="Merida">Merida</option>
+                        <option value="Canyon">Canyon</option>
+                        <option value="SCOTT">SCOTT</option>
+                        <option value="Fuji Bikes">Fuji Bikes</option>
+                        <option value="Focus">Focus</option>
+                        <option value="Bianchi">Bianchi</option>
+                        <option value="Specialized">Specialized</option>
+                        <option value="Pinarello">Pinarello</option>
+                        <option value="Cannondale">Cannondale</option>
+                        <option value="Ridley">Ridley</option>
+                        <option value="Colnago">Colnago</option>
+                        <option value="Giant">Giant</option>
+                        <option value="Trek">Trek</option>
+                        <option value="KTM">KTM</option>
+                        <option value="Look">Look</option>
+                        <option value="BMC">BMC</option>
+                    </select>
+
+                </div>
             </div>
+
+            <button type="submit" class="btn btn-primary" id="submitBtn">Filter</button>
+            <script type="text/javascript">
+                $('#teamFilterForm').submit(function(e){
+                    e.preventDefault();
+                    var request = $.ajax({
+                        url: '/teams',
+                        type: 'POST',
+                        data: $('#teamFilterForm').serialize(),
+                        dataType: 'json'
+                    });
+                    request.done(function( msg ) {
+                        //console.log('done: ' + msg[0].nation );
+                        $("#teamsTableBody").empty();
+                        $("#totalTeams").empty();
+
+                        $.each(msg, function(index, data) {
+                            $("#teamsTableBody").append("<tr><td>" + data.name + "</td><td>" + data.bicycles + "</td><td>" + data.nation + "</td></tr>");
+                        });
+                        $("#totalTeams").append("Teams found: " + msg.length);
+                    });
+
+                    request.fail(function( jqXHR, textStatus ) {
+                        console.log( "Request failed: " + textStatus );
+                    });
+                });
+            </script>
+        </form>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-xs-8 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Team Name</th>
+                        <th>Type of Bicyle</th>
+                        <th>Nation</th>
+                    </tr>
+                </thead>
+                <tbody id="teamsTableBody">
+
+                </tbody>
+                <tfoot>
+                    <tr><td id="totalTeams"></td></tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 </div>
 </body>
+
 </html>
