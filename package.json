@@ -9,7 +9,7 @@
 
     "dependencies": {
         "express": "~4.2.0",
-        "mongodb": "*"
+        "mongoose": "~3.8.12"
     },
 
     "repository": {
