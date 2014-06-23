@@ -34,10 +34,7 @@ server.post('/compass', function(req, res) {
 });
 
 /** Server **/
-//var port = Number(process.env.PORT || 6000);
-var port = Number(8080);
-console.log(process.env.PORT);
-console.log(port);
+var port = Number(process.env.PORT || 6000);
 server.listen(port, function() {
     console.log("Listening on port: " + port);
 });
