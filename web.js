@@ -3,24 +3,29 @@ var express = require('express');
 var logfmt = require("logfmt");
 var bodyParser = require("body-parser");
 
+var mongo = require("./apps/mongo");
 var compass = require("./apps/compass");
-//var mongo = require("./apps/mongo");
+//var fantasy = require("./apps/myTeam");
 var teams = require("./apps/teams");
 var index = require("./routes/index");
 
 var server = express();
 
-//Init logging
+//Init
 server.use(logfmt.requestLogger());
 server.use(bodyParser.urlencoded());
 server.use('/www', express.static(__dirname + '/www'));
+
+// Connect to MongoDB
+mongo.connect();
+
 
 /** Route on GET **/
 server.use('/', index);
 
 server.post('/teams', function(req, res){
-    teams.teamList(req.body, function(err, result) {
-        res.send(result);
+    teams.teamList(req.body, function(err, teamList) {
+       res.send(teamList);
     });
 });
 
@@ -34,7 +39,7 @@ server.post('/compass', function(req, res) {
 });
 
 /** Server **/
-var port = Number(process.env.PORT || 6000);
+var port = Number(process.env.PORT || 8080);
 server.listen(port, function() {
     console.log("Listening on port: " + port);
 });

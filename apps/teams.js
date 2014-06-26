@@ -1,38 +1,54 @@
-var mongoose = require("mongoose");
+var team = require("./model/team");
 
-var Schema = mongoose.Schema;
+// Rider
+var RiderModel = team.RiderModel();
 
-// Team Schema
-var teamSchema = new Schema({
-    name: String,
-    nation: String
-}, {collection: 'teams'});
-
-mongoose.connect('mongodb://tdf2014:fwe032GyHan!@ds061928.mongolab.com:61928/letour');
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// Team
+var TeamModel = team.TeamModel();
 
 
-// Team model
-var Team = mongoose.model('Team', teamSchema);
-
+/**
+ *  Find team by filter
+ * @param body
+ * @param callback
+ */
 exports.teamList = function teamList(body, callback) {
     var nation = body.nation;
     var bicycleBrand = body.bicycles;
     var filter = {};
 
-    if(nation) {
+    if (nation) {
         filter['nation'] = nation;
     }
 
-    if(bicycleBrand) {
+    if (bicycleBrand) {
         filter['bicycles'] = bicycleBrand;
     }
 
-    Team.find(filter, function(err, teams) {
-       if(err) {
-           console.log(err);
-       } else {
-           callback("", teams);
-       }
+    TeamModel.find(filter).populate({path: 'riders', select: 'name'}).exec(function(err, result) {
+        if(err) console.log("An error ocurred while populating rider data.");
+        else {
+            console.log("Team with Riders: " + result);
+            callback("", result);
+        }
     });
+};
+
+/**
+ * Find riders by filter
+ * @param riderIds
+ * @param callback
+ */
+exports.teamRiders = function teamRiders(riderIds, callback) {
+
+    RiderModel.find({team: "Ag2r-La mondiale"}, function (err, riders) {
+        if(err){console.error((err))}
+        else {
+
+
+
+            callback("", riders);
+        }
+    });
+
 };

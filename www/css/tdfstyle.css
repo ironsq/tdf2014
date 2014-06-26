@@ -1,3 +1,9 @@
 .top-spacer {
     margin-top: 20px;
 }
+
+span.expandable {
+    text-decoration: none;
+    border-bottom: 1px dotted #000000;
+    cursor: default;
+}

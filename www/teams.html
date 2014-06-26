@@ -6,13 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tour de France - Teams 2014</title>
     <script src="libraries/jquery-2.1.1.min.js"></script>
-    <script src="libraries/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap-theme.min.css"/>
-
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/tdfstyle.css"/>
-
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 </head>
 
 <body>
@@ -30,11 +27,9 @@
 
     <div class="row">
         <div class="col-xs-12">
-
         <form role="form" id="teamFilterForm" class="form-horizontal">
             <div class="form-group">
                 <div class="col-xs-4">
-                    <!--<label class="control-label">Nation:</label>-->
                     <select class="form-control" id="nationSelect" name="nation">
                         <option value="">Select nation</option>
                         <option value="France">France</option>
@@ -53,7 +48,6 @@
                     </select>
                 </div>
                 <div class="col-xs-4">
-                    <!--<label>Bicycle brand:</label>-->
                     <select class="form-control" id="bicycleBrandSelect" name="bicycles">
                         <option value="">Select bicycle brand</option>
                         <option value="Lapierre">Lapierre</option>
@@ -88,15 +82,43 @@
                         data: $('#teamFilterForm').serialize(),
                         dataType: 'json'
                     });
-                    request.done(function( msg ) {
-                        //console.log('done: ' + msg[0].nation );
-                        $("#teamsTableBody").empty();
-                        $("#totalTeams").empty();
 
-                        $.each(msg, function(index, data) {
-                            $("#teamsTableBody").append("<tr><td>" + data.name + "</td><td>" + data.bicycles + "</td><td>" + data.nation + "</td></tr>");
+                    request.done(function( msg ) {
+                        var teamsTableBody = $("#teamsTableBody");
+                        var teamsTableFooter = $("#totalTeams");
+                        teamsTableBody.empty();
+                        teamsTableFooter.empty();
+
+                        $.each(msg, function (index, data) {
+                            teamsTableBody.append("<tr>" +
+                                    "<td><span class='expandable'>" + data.name + "</span></td>" +
+                                    "<td>" + data.bicycles + "</td>" +
+                                    "<td>" + data.nation + "</td>" +
+                                    "<td>" + data.UCI + "</td>" +
+                                    "</tr>");
+
+                            teamsTableBody.append("<tr hidden><td colspan='4'><p id='" + data.UCI + "'></p></td></tr>");
+                            //var amountOfRiders = data.riders.length;
+                            $.each(data.riders, function(riderIndex, rider){
+                                var teamId = data.UCI;
+                                var riderString = rider.name;
+                                if(riderIndex < data.riders.length - 1) {
+                                    riderString += ", ";
+                                }
+
+                                $("#" + teamId).append(riderString);
+
+                            });
                         });
-                        $("#totalTeams").append("Teams found: " + msg.length);
+
+                        teamsTableFooter.append("Teams found: " + msg.length);
+
+                        $("table").click(function(e){
+                            var target = $(e.target);
+                            var nextHiddenTableRow = target.closest("tr").next("tr[hidden]");
+
+                            nextHiddenTableRow.slideToggle();
+                        });
                     });
 
                     request.fail(function( jqXHR, textStatus ) {
@@ -111,13 +133,14 @@
     <hr/>
 
     <div class="row">
-        <div class="col-xs-8 table-responsive">
+        <div class="col-xs-12 table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                         <th>Team Name</th>
                         <th>Type of Bicyle</th>
                         <th>Nation</th>
+                        <th>UCI Code</th>
                     </tr>
                 </thead>
                 <tbody id="teamsTableBody">
@@ -130,6 +153,7 @@
         </div>
     </div>
 </div>
+
 </body>
 
 </html>
